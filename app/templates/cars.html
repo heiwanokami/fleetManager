@@ -7,4 +7,37 @@
           <a class="nav-link" href="/addcar">Add Car <span class="sr-only">(current)</span></a>
         </li>
     </ul>
+
+    <div class= "cartable">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">SPZ</th>
+            <th scope="col">Popis</th>
+            <th scope="col">Uživatel</th>
+            <th scope="col">VIN</th>
+            <th scope="col">Leasing</th>
+            <th scope="col">Leasing do</th>
+            <th scope="col">Pojištění</th>
+            <th scope="col">Pojištění do</th>
+            <th scope="col">Dálnička do</th>
+
+          </tr>
+        </thead>
+        <tbody>
+          {% for car in cars %}
+          <tr>
+            <th scope="row">{{car.SPZ}}</th>
+            <td>{{car.description}}</td>
+            <td>{{car.car_user.username}}</td>
+            <td>{{car.VIN}}</td>
+            <td>{{car.leasing_company}}</td>
+            <td>{{car.leased_until}}</td>
+            <td>{{car.insurance_company}}</td>
+            <td>{{car.insured_until}}</td>
+            <td>{{car.highway}}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+    </div>
 {% endblock %}

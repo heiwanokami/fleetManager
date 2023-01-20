@@ -10,7 +10,11 @@ class LoginForm(FlaskForm):
     submit = SubmitField('Sign In')
 
 def get_users():
-    return User.query.all()
+    choices = list()
+    users = User.query.order_by(User.username)
+    for user in users:  # <- assumes store_id and store_names are unique
+        choices.append((user.id,user))
+    return choices
 
 class AddCarForm(FlaskForm):
     spz = StringField('SPZ', validators=[DataRequired()])
@@ -18,8 +22,8 @@ class AddCarForm(FlaskForm):
     VIN = StringField("VIN", validators=[DataRequired()])
     leasing_company = StringField("Leasingová společnost")
     leased_until = DateField("Leasnuto do")
-    insurance_company = StringField("POjišťovna")
-    insurance_until = DateField("Pojištěno do")
+    insurance_company = StringField("Pojišťovna")
+    insured_until = DateField("Pojištěno do")
     highway = DateField("Dálniční známka do")
     user_id = SelectField("Uživatel", choices=get_users)
     submit = SubmitField('Submit')
