@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Add car</h1>
+<form action="" method="post" novalidate>
+    {{ form.hidden_tag() }}
+    <p>
+        {{ form.spz.label }}<br>
+        {{ form.spz(size=32) }}<br>
+        {% for error in form.spz.errors %}
+        <span style="color: red;">[{{ error }}]</span>
+        {% endfor %}
+    </p>
+    <p>
+        {{ form.description.label }}<br>
+        {{ form.description(size=32) }}<br>
+        {% for error in form.description.errors %}
+        <span style="color: red;">[{{ error }}]</span>
+        {% endfor %}
+    </p>
+    <p>
+        {{ form.VIN.label }}<br>
+        {{ form.VIN(size=32) }}<br>
+        {% for error in form.VIN.errors %}
+        <span style="color: red;">[{{ error }}]</span>
+        {% endfor %}
+    </p>
+    <p>
+        {{ form.leasing_company.label }}<br>
+        {{ form.leasing_company(size=32) }}<br>
+    </p>
+    <p>
+        {{ form.leased_until.label }}<br>
+        {{ form.leased_until(size=32) }}<br>
+    </p>
+    <p>
+        {{ form.insurance_company.label }}<br>
+        {{ form.insurance_company(size=32) }}<br>
+    </p>
+    <p>
+        {{ form.insurance_until.label }}<br>
+        {{ form.insurance_until(size=32) }}<br>
+    </p>
+    <p>
+        {{ form.highway.label }}<br>
+        {{ form.highway(size=32) }}<br>
+    </p>
+    <p>
+        {{ form.user_id.label }}<br>
+        {{ form.user_id(size=32) }}<br>
+    </p>
+
+    <p>{{ form.submit() }}</p>
+</form>
+{% endblock %}

@@ -18,6 +18,7 @@ class Car(db.Model):
     leased_until = db.Column(db.DateTime,index=True)
     insurence_company = db.Column(db.String(120), index=True, unique=False)
     insureded_until = db.Column(db.DateTime,index=True)
+    highway = db.column(db.DateTime)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
     def __repr__(self):
