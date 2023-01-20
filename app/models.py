@@ -15,9 +15,10 @@ class Car(db.Model):
     description = db.Column(db.String(120), index=True, unique=False)
     VIN = db.Column(db.String(50), index=True, unique=True)
     leasing_company = db.Column(db.String(120), index=True, unique=False)
-    leased_until = db.Column(db.DateTime)
+    leased_until = db.Column(db.DateTime,index=True)
     insurence_company = db.Column(db.String(120), index=True, unique=False)
-    insureded_until = db.Column(db.DateTime)
+    insureded_until = db.Column(db.DateTime,index=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
     def __repr__(self):
         return '<Car {}, {}>'.format(self.SPZ,self.description)
