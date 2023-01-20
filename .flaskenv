@@ -1,0 +1,2 @@
+FLASK_APP=fleetmanager.py
+FLASK_ENV=development
