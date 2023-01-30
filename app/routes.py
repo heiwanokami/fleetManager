@@ -26,8 +26,8 @@ def cars():
 @app.route("/addcar", methods=['GET', 'POST'])
 def add_car():
     form = AddCarForm()
-    if form.validate_on_submit():
-        car = Car(SPZ = form.spz.data,
+    if form.validate_on_submit() and form.validate():
+        car = Car(SPZ = form.SPZ.data,
                   description = form.description.data,
                   VIN = form.VIN.data,
                   leasing_company = form.leasing_company.data,
@@ -44,3 +44,18 @@ def add_car():
             # form.description.data, form.spz.data, form.leased_until.data))
         return redirect(url_for('cars'))
     return render_template("add_car.html", title="Add Car", form = form)
+
+
+@app.route("/edit_car/<int:car_id>", methods=['GET', 'POST'])
+def edit_car(car_id):
+
+    item = db.session.query(Car).get(car_id)
+
+    form = AddCarForm(obj=item)
+    if form.validate_on_submit():
+        form.populate_obj(item)
+        db.session.add(item)
+        db.session.commit()
+        return redirect(url_for('cars'))
+
+    return render_template('add_car.html', form=form)

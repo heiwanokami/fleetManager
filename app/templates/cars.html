@@ -21,6 +21,7 @@
             <th scope="col">Pojištění</th>
             <th scope="col">Pojištění do</th>
             <th scope="col">Dálnička do</th>
+            <th scope='col'>Upravit</th>
 
           </tr>
         </thead>
@@ -32,10 +33,11 @@
             <td>{{car.car_user.username}}</td>
             <td>{{car.VIN}}</td>
             <td>{{car.leasing_company}}</td>
-            <td>{{car.leased_until}}</td>
+            <td>{{car.leased_until|format_datetime('medium')}}</td>
             <td>{{car.insurance_company}}</td>
-            <td>{{car.insured_until}}</td>
-            <td>{{car.highway}}</td>
+            <td>{{car.insured_until|format_datetime('medium')}}</td>
+            <td>{{car.highway|format_datetime('medium')}}</td>
+            <td><a href= "{{ url_for('edit_car', car_id=car.id)}}"><img src="{{url_for('static', filename='icons8-pencil-24.png')}}"/></a></td>
           </tr>
           {% endfor %}
         </tbody>

@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, SelectField, PasswordField, BooleanField, SubmitField, DateField
-from wtforms.validators import DataRequired
+from wtforms.validators import DataRequired, Optional
 from app.models import User
 
 class LoginForm(FlaskForm):
@@ -17,13 +17,13 @@ def get_users():
     return choices
 
 class AddCarForm(FlaskForm):
-    spz = StringField('SPZ', validators=[DataRequired()])
+    SPZ = StringField('SPZ', validators=[DataRequired()])
     description = StringField('Popis', validators=[DataRequired()])
     VIN = StringField("VIN", validators=[DataRequired()])
-    leasing_company = StringField("Leasingová společnost")
-    leased_until = DateField("Leasnuto do")
-    insurance_company = StringField("Pojišťovna")
-    insured_until = DateField("Pojištěno do")
-    highway = DateField("Dálniční známka do")
-    user_id = SelectField("Uživatel", choices=get_users)
+    leasing_company = StringField("Leasingová společnost", validators=[Optional()])
+    leased_until = DateField("Leasnuto do", validators=[Optional()])
+    insurance_company = StringField("Pojišťovna", validators=[Optional()])
+    insured_until = DateField("Pojištěno do", validators=[Optional()])
+    highway = DateField("Dálniční známka do", validators=[Optional()])
+    user_id = SelectField("Uživatel", choices=get_users, validators=[Optional()])
     submit = SubmitField('Submit')
