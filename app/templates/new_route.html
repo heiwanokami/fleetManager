@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Cesta</h1>
+<div class="divForm">
+<form action="" method="post" novalidate>
+    {{ form.hidden_tag() }}
+    <div class="form-row">
+        <div class="form-group col-md-2">
+          {{ form.car.label }}
+          {{ form.car(size=5,class_="form-control") }} <br>
+          {% for error in form.car.errors %}
+          <span style="color: red;">[{{ error }}]</span>
+          {% endfor %}
+        </div>
+        <div class="form-group col-md-3">
+            {{ form.driver.label }}<br>
+            {{ form.driver(size=5,class_="form-control") }}<br>
+            {% for error in form.driver.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </div>
+        <div class="form-group col-md-3">
+            {{ form.route_desc.label }}<br>
+            {{ form.route_desc(size=32,class_="form-control") }}<br>
+            {% for error in form.route_desc.errors %}
+        <span style="color: red;">[{{ error }}]</span>
+        {% endfor %}
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col-md-3">
+            {{ form.route_length.label }}<br>
+            {{ form.route_length(size=32,class_="form-control") }}<br>
+            <p id="calculate-km" hidden>Aktuální počet km = <span id="aktKm">10</span> </p>
+            {% for error in form.route_length.errors %}
+        <span style="color: red;">[{{ error }}]</span>
+        {% endfor %}
+        </div>
+        <div class="form-check col-md-4">
+        {{form.route_purpose.label}} <br>
+        {% for field in form.route_purpose %}
+        <div class="form-check form-check-inline">
+          <!-- <input class="form-check-input" type="radio" name="route_purpose"> -->
+          {{field}}
+          {{field.label}}
+
+        </div>
+        {% endfor %}
+        {% for error in form.route_purpose.errors %}
+        <span style="color: red;">[{{ error }}]</span>
+        {% endfor %}
+      </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col-md-4">
+            {{ form.date.label }}<br>
+            {{ form.date(size=32,class_="form-control") }}
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col-md-2">
+          <div class="form-check form-check-inline">
+            {{ form.own_gas(class="form-check-input form-check-inline") }}
+            <label class="form-check-label" for="inlineCheckbox1">{{ form.own_gas.label }}</label>
+          </div>
+            
+        </div>
+      </div>
+      <div class="form-row">
+      <div class="form-group col-md-12">
+        {{ form.submit(class="btn btn-primary") }}
+      </div>
+      </div>
+</form>
+</div>
+{% endblock %}
