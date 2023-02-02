@@ -16,6 +16,7 @@
         <div class="form-group col-md-3">
             {{ form.driver.label }}<br>
             {{ form.driver(size=5,class_="form-control") }}<br>
+            
             {% for error in form.driver.errors %}
             <span style="color: red;">[{{ error }}]</span>
             {% endfor %}

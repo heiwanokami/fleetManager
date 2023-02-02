@@ -2,6 +2,8 @@ from flask_wtf import FlaskForm
 from wtforms import StringField,IntegerField,RadioField, SelectField, PasswordField, BooleanField, SubmitField, DateField
 from wtforms.validators import DataRequired, Optional, NumberRange
 from app.models import User, Car
+from flask_login import current_user, login_user, logout_user
+import datetime
 
 class LoginForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired()])
@@ -38,10 +40,10 @@ def get_cars():
 
 class RouteOps(FlaskForm):
     car = SelectField("SPZ", choices=get_cars, validators=[DataRequired()])
-    driver = SelectField("Uživatel", choices=get_users, validators=[DataRequired()])
+    driver = SelectField("Uživatel", choices=get_users,validators=[DataRequired()])
     route_desc = StringField('Popis', validators=[DataRequired()])
-    route_purpose = RadioField("Účel cesty", coerce=int, choices=[(1, "Služebně"),(2,"Soukromě")], validators=[DataRequired()])
-    date = DateField("Datum cesty", validators=[DataRequired()])
+    route_purpose = RadioField("Účel cesty", coerce=int, choices=[(1, "Služebně"),(2,"Soukromě")],default=1, validators=[DataRequired()])
+    date = DateField("Datum cesty", validators=[DataRequired()], default=datetime.datetime.today) ## Now it will call it everytime.
     own_gas = BooleanField('Vlastní palivo', validators=[Optional()])
     route_length = IntegerField("Počet KM", validators=[DataRequired(),NumberRange(min=1)])
     submit = SubmitField('Submit')
