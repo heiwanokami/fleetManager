@@ -1,6 +1,15 @@
+from dataclasses import dataclass
 from app import db
 from flask_login import UserMixin
 from app import login
+from sqlalchemy_serializer import SerializerMixin
+import datetime
+
+
+class CustomSerializerMixin(SerializerMixin):
+    serialize_types = (
+        (datetime, lambda x: str(x)),
+    )
 
 @login.user_loader
 def load_user(id):
@@ -18,7 +27,8 @@ class User(UserMixin,db.Model):
     def __repr__(self):
         return '{}'.format(self.username)
 
-class Car(db.Model):
+# @dataclass
+class Car(db.Model,CustomSerializerMixin):
     id = db.Column(db.Integer, primary_key=True)
     SPZ = db.Column(db.String(10), index=True, unique=True)
     description = db.Column(db.String(120), index=True, unique=False)
@@ -33,6 +43,20 @@ class Car(db.Model):
 
     def __repr__(self):
         return '<Car {}, {}>'.format(self.SPZ,self.description)
+    
+    def obj_to_dict(self):
+        return {
+            "id" :self.id ,
+            "SPZ" :self.SPZ,
+            "description" :self.description,
+            "VIN"  :self.VIN,
+            "leasing_company" :self.leasing_company,
+            "leased_until"  :self.leased_until,
+            "insurance_company"  :self.insurance_company,
+            "insured_until"  :self.insured_until,
+            "highway" :self.highway,
+            "user_id"  :self.user_id
+        }
 
 class Route(db.Model):
     id = db.Column(db.Integer, primary_key=True)

@@ -11,7 +11,7 @@ from flask_login import current_user, login_user, logout_user,login_required
 
 from sqlalchemy import func
 from app import app, db
-from flask import render_template, redirect, flash, url_for
+from flask import render_template, redirect, flash, url_for, jsonify
 from app.forms import LoginForm, AddCarForm, RouteOps
 from app.models import Car, Route, User
 
@@ -48,6 +48,21 @@ def login():
 def cars():
     cars = Car.query.all()
     return render_template("cars.html", title="Cars", cars= cars)
+
+def dict_helper(objlist):
+    if isinstance(objlist, list):
+        result2 = [item.obj_to_dict() for item in objlist]
+    else:
+        result2 = objlist.obj_to_dict()
+    return result2
+
+@app.route("/carsapi")
+@login_required
+def cars_api():
+    cars = Car.query.get(1)
+    # flash(cars)
+    dict = dict_helper(cars)
+    return jsonify(result = dict)
 
 @app.route("/addcar", methods=['GET', 'POST'])
 @login_required
