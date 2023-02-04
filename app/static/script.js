@@ -1,8 +1,6 @@
 $(document).ready(function () {
     // $("#calculate-km").attr("hidden",false);
-    $('select').selectize({
-        sortField: 'text'
-    });
+    
     let current_km = 0;
     $('#car').on('change', async function() {
         if (this.value === ""){
@@ -25,8 +23,35 @@ $(document).ready(function () {
         } else {
             new_km = current_km;
         }
-        $('#aktKm').text(new_km)
-
+        $('#aktKm').text(new_km)    
+    });
+    var table =$('#carTable').DataTable({
         
+    });
+    $("#carTable tfoot th").each( function ( i ) {
+		
+		if ($(this).text() !== '') {
+
+			var select = $('<select><option value=""></option></select>')
+	            .appendTo( $(this).empty() )
+	            .on( 'change', function () {
+	                var val = $(this).val();
+					
+	                table.column( i )
+	                    .search( val ? '^'+$(this).val()+'$' : val, true, false )
+	                    .draw();
+	            } );
+	 		
+
+            // All other non-Status columns (like the example)
+            console.log(table.column(i).data().unique());
+				table.column( i ).data().unique().sort().each( function ( d, j ) {  
+					select.append( '<option value="'+d+'">'+d+'</option>' );
+		        } );	
+	        
+		}
+    } );
+    $('select').selectize({
+        sortField: 'text'
     });
 });

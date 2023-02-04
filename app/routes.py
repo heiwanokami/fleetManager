@@ -59,10 +59,10 @@ def dict_helper(objlist):
 @app.route("/carsapi")
 @login_required
 def cars_api():
-    cars = Car.query.get(1)
+    cars = Car.query.all()
     # flash(cars)
     dict = dict_helper(cars)
-    return jsonify(result = dict)
+    return jsonify(dict)
 
 @app.route("/addcar", methods=['GET', 'POST'])
 @login_required
