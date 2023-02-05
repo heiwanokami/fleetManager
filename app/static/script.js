@@ -28,29 +28,29 @@ $(document).ready(function () {
     var table =$('#carTable').DataTable({
         
     });
-    $("#carTable tfoot th").each( function ( i ) {
+    // $("#carTable tfoot th").each( function ( i ) {
 		
-		if ($(this).text() !== '') {
+	// 	if ($(this).text() !== '') {
 
-			var select = $('<select><option value=""></option></select>')
-	            .appendTo( $(this).empty() )
-	            .on( 'change', function () {
-	                var val = $(this).val();
+	// 		var select = $('<select><option value=""></option></select>')
+	//             .appendTo( $(this).empty() )
+	//             .on( 'change', function () {
+	//                 var val = $(this).val();
 					
-	                table.column( i )
-	                    .search( val ? '^'+$(this).val()+'$' : val, true, false )
-	                    .draw();
-	            } );
+	//                 table.column( i )
+	//                     .search( val ? '^'+$(this).val()+'$' : val, true, false )
+	//                     .draw();
+	//             } );
 	 		
 
-            // All other non-Status columns (like the example)
-            console.log(table.column(i).data().unique());
-				table.column( i ).data().unique().sort().each( function ( d, j ) {  
-					select.append( '<option value="'+d+'">'+d+'</option>' );
-		        } );	
+    //         // All other non-Status columns (like the example)
+    //         console.log(table.column(i).data().unique());
+	// 			table.column( i ).data().unique().sort().each( function ( d, j ) {  
+	// 				select.append( '<option value="'+d+'">'+d+'</option>' );
+	// 	        } );	
 	        
-		}
-    } );
+	// 	}
+    // } );
     $('select').selectize({
         sortField: 'text'
     });

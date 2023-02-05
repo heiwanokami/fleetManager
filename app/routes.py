@@ -196,7 +196,7 @@ def callback():
 
     if not User.query.filter_by(email = session["email"] ).first():
 
-        user = User(user_name = session["name"], username = username, email = session["email"])
+        user = User(user_name = session["name"], username = username, email = session["email"], google_id = sesison["google_id"])
         db.session.add(user)
         db.session.commit()
 

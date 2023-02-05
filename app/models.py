@@ -20,6 +20,7 @@ class User(UserMixin,db.Model):
     username = db.Column(db.String(64), index=True, unique=True)
     email = db.Column(db.String(120), index=True, unique=True)
     user_name =  db.Column(db.String(120), index=True)
+    google_id = db.Column(db.String(120), index=True)
     cars = db.relationship("Car", backref="car_user", lazy=True)
     routes = db.relationship("Route", backref="car_user",lazy=True)
     
@@ -71,9 +72,5 @@ class Route(db.Model):
     def __repr__(self):
         return '<Route {}, {}>'.format(self.route_desc,self.route_length)
 
-class RoutePurpose(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    value = db.Column(db.Integer, unique = True)
-    desc = db.Column(db.String(60))
 
 
